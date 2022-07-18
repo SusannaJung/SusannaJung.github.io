@@ -19,13 +19,17 @@ jobs:
       - name: gatsby build
         run: yarn build
         env:
-          # API_KEY 에는 자신이 secret을 생성할 때 설정한 이름으로 넣어야 한다
           GH_API_KEY: ${{ secrets.BLOG }}
+
+      - name: copy files
+        # ${{ HTML 파일 이름 }} 부분에 실제 google~~.html 파일 이름을 입력한다.
+        run: |
+          cp CNAME public/
+          cp ${{google00362d3193e25303.html }} public/
 
       - name: deploy
         uses: maxheld83/ghpages@v0.2.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          # API_KEY 에는 자신이 secret을 생성할 때 설정한 이름으로 넣어야 한다
           GH_PAT: ${{ secrets.BLOG }}
           BUILD_DIR: 'public/'
